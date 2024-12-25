@@ -9,12 +9,36 @@ class ReportGenerator:
             'compliance': self.generate_compliance_report
         }
     
-    def generate_report(self, report_type, vendor_id):
-        """Generate specified report type"""
-        if report_type in self.report_types:
-            return self.report_types[report_type](vendor_id)
-        raise ValueError(f"Unknown report type: {report_type}")
-    
+    def generate_alerts_report(self, vendor_id):
+        """Generate alerts report"""
+        # Simulate alerts data
+        alerts_data = {
+            'vendor_id': vendor_id,
+            'timestamp': datetime.now(),
+            'alerts': [
+                {'type': 'Security Breach', 'severity': 'HIGH'},
+                {'type': 'Access Violation', 'severity': 'MEDIUM'}
+            ]
+        }
+        
+        filename = f"alerts_{vendor_id}_{datetime.now().strftime('%Y%m%d')}.csv"
+        self.save_report_to_csv(filename, alerts_data)
+        return filename
+
+    def generate_compliance_report(self, vendor_id):
+        """Generate compliance report"""
+        # Simulate compliance data
+        compliance_data = {
+            'vendor_id': vendor_id,
+            'timestamp': datetime.now(),
+            'compliance_status': 'Compliant',
+            'frameworks': ['ISO27001', 'SOC2']
+        }
+        
+        filename = f"compliance_{vendor_id}_{datetime.now().strftime('%Y%m%d')}.csv"
+        self.save_report_to_csv(filename, compliance_data)
+        return filename
+
     def generate_risk_summary(self, vendor_id):
         """Generate risk summary report"""
         # Simulate report data
@@ -29,7 +53,6 @@ class ReportGenerator:
             ]
         }
         
-        # Save report
         filename = f"risk_summary_{vendor_id}_{datetime.now().strftime('%Y%m%d')}.csv"
         self.save_report_to_csv(filename, report_data)
         return filename
@@ -41,5 +64,5 @@ class ReportGenerator:
             writer.writerow(['Metric', 'Value'])
             for key, value in data.items():
                 if isinstance(value, list):
-                    value = '; '.join(value)
-                writer.writerow([key, value])
+                    value = '; '.join(map(str, value))
+                writer.writerow([key, str(value)])
