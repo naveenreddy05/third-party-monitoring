@@ -3,34 +3,85 @@
 <head>
     <title>Vendor Security Dashboard</title>
     <style>
-        .risk-high { color: red; }
-        .risk-medium { color: orange; }
-        .risk-low { color: green; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .risk-high { color: #d32f2f; }
+        .risk-medium { color: #f57c00; }
+        .risk-low { color: #388e3c; }
         .metric-card {
+            background-color: white;
             border: 1px solid #ddd;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #1976d2;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .alert-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .score-large {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .risk-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
         }
     </style>
 </head>
 <body>
-    <h1>Vendor Security Dashboard</h1>
+    <div class="header">
+        <h1>Vendor Security Dashboard</h1>
+        <p>{{ data.vendor_name }} - Last Assessment: {{ data.last_assessment.strftime('%Y-%m-%d %H:%M') }}</p>
+    </div>
     
     <div class="metric-card">
-        <h2>Risk Score</h2>
-        <h3 class="{{ 'risk-high' if data.risk_score > 75 else 'risk-low' }}">
-            {{ data.risk_score }}
-        </h3>
+        <h2>Overall Risk Score</h2>
+        <div class="score-large {{ 'risk-high' if data.risk_score > 75 else 'risk-medium' if data.risk_score > 50 else 'risk-low' }}">
+            {{ "%.1f"|format(data.risk_score) }}
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <h2>Risk Breakdown</h2>
+        <div class="risk-details">
+            {% for category, details in data.risk_details.items() if category != 'overall_score' %}
+            <div>
+                <h3>{{ category|replace('_', ' ')|title }}</h3>
+                <p>Score: {{ "%.1f"|format(details.score) }}</p>
+                <p>Weight: {{ details.weight * 100 }}%</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <div class="metric-card">
         <h2>Recent Alerts</h2>
-        <ul>
         {% for alert in data.alerts %}
-            <li>{{ alert.type }} - {{ alert.severity }}</li>
+        <div class="alert-item">
+            <strong class="{{ 'risk-high' if alert.severity == 'HIGH' else 'risk-medium' if alert.severity == 'MEDIUM' else 'risk-low' }}">
+                {{ alert.severity }}
+            </strong>
+            - {{ alert.type }}
+            <small>({{ alert.timestamp }})</small>
+        </div>
         {% endfor %}
-        </ul>
     </div>
 </body>
 </html>
