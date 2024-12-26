@@ -1,0 +1,24 @@
+.monitoring-section {
+    margin-top: 30px;
+}
+
+.real-time-alerts {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.threat-detection {
+    background-color: #fff3e0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.compliance-status {
+    background-color: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}

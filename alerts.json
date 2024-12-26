@@ -1,1 +1,5 @@
 
+{"vendor_id": "TEST_VENDOR_001", "timestamp": "2024-12-25T22:12:57.683235", "alert_type": "SECURITY_SCAN", "severity": "MEDIUM", "status": "NEW"}
+{"vendor_id": "TEST_VENDOR_001", "timestamp": "2024-12-25T23:19:12.394480", "alert_type": "SECURITY_SCAN", "severity": "MEDIUM", "status": "NEW"}
+{"vendor_id": "TEST_VENDOR_001", "timestamp": "2024-12-25T23:29:20.842187", "alert_type": "SECURITY_SCAN", "severity": "MEDIUM", "status": "NEW"}
+{"vendor_id": "TEST_VENDOR_001", "timestamp": "2024-12-26T15:31:25.487793", "alert_type": "SECURITY_SCAN", "severity": "MEDIUM", "status": "NEW"}

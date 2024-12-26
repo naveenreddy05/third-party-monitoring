@@ -1,0 +1,79 @@
+[
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T15:53:15.082211",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T15:54:01.805081",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:00:00.016786",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:06:34.092975",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:17:01.946150",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:22:12.294570",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:23:18.293345",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:53:42.071383",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:56:25.242209",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T16:59:48.759224",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  },
+  {
+    "vendor_id": "TEST_VENDOR_001",
+    "timestamp": "2024-12-26T17:33:11.433574",
+    "alert_type": "SECURITY_SCAN",
+    "severity": "MEDIUM",
+    "status": "NEW"
+  }
+]

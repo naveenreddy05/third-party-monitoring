@@ -38,10 +38,28 @@
             text-align: center;
             margin: 20px 0;
         }
-        .risk-details {
+        .monitoring-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .monitoring-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .finding-item {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .threat-item {
+            background-color: #fff3e0;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -50,7 +68,7 @@
         <h1>Vendor Security Dashboard</h1>
         <p>{{ data.vendor_name }} - Last Assessment: {{ data.last_assessment.strftime('%Y-%m-%d %H:%M') }}</p>
     </div>
-    
+
     <div class="metric-card">
         <h2>Overall Risk Score</h2>
         <div class="score-large {{ 'risk-high' if data.risk_score > 75 else 'risk-medium' if data.risk_score > 50 else 'risk-low' }}">
@@ -60,12 +78,12 @@
 
     <div class="metric-card">
         <h2>Risk Breakdown</h2>
-        <div class="risk-details">
-            {% for category, details in data.risk_details.items() if category != 'overall_score' %}
-            <div>
+        <div class="monitoring-grid">
+            {% for category, details in data.risk_details.items() %}
+            <div class="monitoring-card">
                 <h3>{{ category|replace('_', ' ')|title }}</h3>
                 <p>Score: {{ "%.1f"|format(details.score) }}</p>
-                <p>Weight: {{ details.weight * 100 }}%</p>
+                <p>Weight: {{ "%.1f"|format(details.weight * 100) }}%</p>
             </div>
             {% endfor %}
         </div>
@@ -75,13 +93,69 @@
         <h2>Recent Alerts</h2>
         {% for alert in data.alerts %}
         <div class="alert-item">
-            <strong class="{{ 'risk-high' if alert.severity == 'HIGH' else 'risk-medium' if alert.severity == 'MEDIUM' else 'risk-low' }}">
-                {{ alert.severity }}
+            <strong class="{{ 'risk-high' if alert.level == 'HIGH' else 'risk-medium' if alert.level == 'MEDIUM' else 'risk-low' }}">
+                {{ alert.level }}
             </strong>
             - {{ alert.type }}
-            <small>({{ alert.timestamp }})</small>
+            <br>
+            <small>{{ alert.timestamp }}</small>
+            <p>{{ alert.details }}</p>
         </div>
         {% endfor %}
+    </div>
+    <div class="metric-card">
+        <h2>Real-Time Monitoring</h2>
+        <div class="monitoring-grid">
+            <div class="monitoring-card">
+                <h3>Threat Detection</h3>
+                {% for threat in data.monitoring.threat_analysis %}
+                <div class="threat-item">
+                    <strong>{{ threat.type }}</strong>
+                    <p>Severity: {{ threat.severity }}</p>
+                    <p>{{ threat.timestamp }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="monitoring-card">
+                <h3>Security Posture</h3>
+                <div class="score-large">
+                    {{ "%.1f"|format(data.monitoring.security_posture.score) }}
+                </div>
+                <p>Last Updated: {{ data.monitoring.security_posture.last_updated }}</p>
+                {% if data.monitoring.security_posture.findings %}
+                <h4>Recent Findings:</h4>
+                {% for finding in data.monitoring.security_posture.findings %}
+                <div class="finding-item">
+                    {{ finding.type }} - {{ finding.severity }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <h2>Compliance Monitoring</h2>
+        <div class="monitoring-grid">
+            <div class="monitoring-card">
+                <h3>Compliance Status</h3>
+                <div class="score-large">
+                    {{ "%.1f"|format(data.monitoring.compliance_status.score) }}
+                </div>
+                <p>Frameworks: {{ data.monitoring.compliance_status.frameworks|join(', ') }}</p>
+            </div>
+            
+            <div class="monitoring-card">
+                <h3>Compliance Findings</h3>
+                {% with findings = data.monitoring.compliance_status.findings %}
+                <p>Total Controls: {{ findings.total_controls }}</p>
+                <p>Compliant: {{ findings.compliant }}</p>
+                <p>Non-Compliant: {{ findings.non_compliant }}</p>
+                <p>Critical Findings: {{ findings.critical_findings }}</p>
+                {% endwith %}
+            </div>
+        </div>
     </div>
 </body>
 </html>
